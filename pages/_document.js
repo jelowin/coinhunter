@@ -1,39 +1,28 @@
-import React from "react";
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import { CssBaseline } from "@nextui-org/react";
+import React from 'react'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
+  static async getInitialProps (ctx) {
+    const initialProps = await Document.getInitialProps(ctx)
     return {
       ...initialProps,
-      styles: React.Children.toArray([initialProps.styles]),
-    };
+      styles: React.Children.toArray([initialProps.styles])
+    }
   }
 
-  render() {
+  render () {
     return (
-      <Html lang="es">
+      <Html lang='es'>
         <Head>
-          {CssBaseline.flush()}
-          <link
-            as="font"
-            href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
-            rel="preload"
-          />
-          <link
-            as="font"
-            href="https://fonts.googleapis.com/css2?family=Barlow&display=optional"
-            rel="preload"
-          />
+          <link rel='stylesheet' href='https://rsms.me/inter/inter.css' />
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default MyDocument;
+export default MyDocument
