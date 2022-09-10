@@ -10,20 +10,22 @@
     "phoenix": "rm -rf ./node_modules && npm i"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.0",
-    "@heroicons/react": "^2.0.10",
+    "@headlessui/react": "1.7.0",
+    "@heroicons/react": "2.0.10",
     "@supabase/supabase-js": "2.0.0-rc.6",
     "next": "12.1.4",
     "puppeteer": "16.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hot-toast": "^2.3.0",
-    "react-icons": "^4.4.0"
+    "react-hot-toast": "2.3.0",
+    "react-icons": "4.4.0"
   },
   "devDependencies": {
+    "autoprefixer": "10.4.8",
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
-    "standard": "^17.0.0",
+    "postcss": "8.4.16",
+    "standard": "17.0.0",
     "tailwindcss": "3.1.8"
   },
   "eslintConfig": {
