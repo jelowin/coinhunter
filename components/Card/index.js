@@ -1,116 +1,68 @@
-import {
-  Button,
-  Card,
-  Col,
-  Link as NextUiLink,
-  Modal,
-  Row,
-  Text
-} from '@nextui-org/react'
-import { useState } from 'react'
-import { HiOutlineHeart } from 'react-icons/hi'
-import { MdOutlineChangeCircle } from 'react-icons/md'
-import { BsBookmarkCheck } from 'react-icons/bs'
+import React from 'react'
+import Context from '../../context/globalContext.js'
+import { ArrowsRightLeftIcon, HeartIcon } from '@heroicons/react/24/outline'
+import { supabase } from '../../utils/supabaseClient'
 
-import styles from './Card.module.css'
+const CoinCard = props => {
+  const { country, id, image, reason, year } = props.coin
+  const { session } = React.useContext(Context)
 
-const CoinCard = ({ item }) => {
-  const [modalOpen, setModalOpen] = useState(false)
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
-
-  const handleAddToFavorites = e => {
-    const coinId = e.target.dataset.id
-    console.log({ coinId })
+  const handleAddToFavorites = async () => {
+    try {
+      const { error } = await supabase
+        .from('user_coin')
+        .insert([{ user_id: session.user.id, coin_id: id }])
+      if (error) throw error
+    } catch (error) {
+      console.error('Error adding favorite coin', error.message)
+    }
   }
 
   return (
-    <>
-      <Card css={{ position: 'relative' }} isHoverable variant='bordered'>
-        <Button
-          className={styles.badge}
-          auto
-          color='black'
-          bordered
-          icon={<BsBookmarkCheck size={25} style={{ padding: 0, margin: 0 }} />}
+    <article
+      className='bg-white flex flex-col items-center w-full relative p-4 rounded-md shadow-sm'
+      key={id}
+    >
+      {/* Imagen */}
+      <div className='flex flex-[1_1_auto] mb-4'>
+        <img
+          alt={reason}
+          className='aspect-square'
+          src={image}
+          height={150}
+          width={150}
         />
-        <Card.Body>
-          <Card.Image
-            src={item?.image}
-            objectFit='contain'
-            width='100%'
-            height='250px'
-            alt='Image'
+      </div>
+      {/* Contenido */}
+      <div className='flex flex-[2_1_auto] w-full'>
+        <div className='flex flex-col'>
+          <div className='flex justify-between mb-2'>
+            <p className='font-semibold text-sm'>{country}</p>
+            <p className='font-semibold  text-sm'>{year}</p>
+          </div>
+
+          <p className='mb-2 prose prose-slate line-clamp-2'>{reason}</p>
+          <a
+            className='text-sm underline text-blue-400 cursor-pointer'
+            onClick={() => {}}
+          >
+            Ver más
+          </a>
+        </div>
+      </div>
+      {/* Botones */}
+      <div className='flex flex-[1_1_auto] w-full'>
+        <div className='border-r-2 flex justify-center items-center flex-[1_1_50%]'>
+          <ArrowsRightLeftIcon className='cursor-pointer w-8 ' />
+        </div>
+        <div className='flex justify-center items-center  flex-[1_1_50%]'>
+          <HeartIcon
+            className='cursor-pointer w-8 '
+            onClick={handleAddToFavorites}
           />
-        </Card.Body>
-        <Card.Footer css={{ justifyItems: 'flex-start' }}>
-          <Col>
-            <Row wrap='wrap' justify='space-between' align='center'>
-              <Text
-                b
-                css={{
-                  fontSize: '$lg',
-                  marginBottom: '$xs'
-                }}
-              >
-                {item?.country}
-              </Text>
-              <Text
-                b
-                css={{
-                  color: '$accents7',
-                  fontSize: '$md'
-                }}
-              >
-                {item?.year}
-              </Text>
-            </Row>
-            <Row wrap='wrap' justify='flex-start' align='center'>
-              <Text
-                b
-                css={{
-                  color: '$accents7',
-                  marginBottom: '$1',
-                  fontSize: '$sm'
-                }}
-              >
-                {item?.issueVolum}
-              </Text>
-            </Row>
-            <Row wrap='wrap' justify='flex-start' align='center'>
-              <Text
-                css={{
-                  fontSize: '$md',
-                  marginBottom: '$md'
-                }}
-              >
-                {item?.reason}
-              </Text>
-            </Row>
-            <Row wrap='wrap' justify='flex-start' align='center'>
-              <NextUiLink onClick={openModal}>Ver más</NextUiLink>
-            </Row>
-            <Row css={{ h: '40px' }} align='center'>
-              <Button
-                auto
-                color='error'
-                data-id={item.id}
-                css={{ h: '100%' }}
-                icon={<HiOutlineHeart size={25} />}
-                size='xs'
-                onClick={handleAddToFavorites}
-              />
-            </Row>
-          </Col>
-        </Card.Footer>
-      </Card>
-      <Modal
-        closeButton
-        aria-labelledby='modal-title'
-        open={modalOpen}
-        onClose={closeModal}
-      />
-    </>
+        </div>
+      </div>
+    </article>
   )
 }
 

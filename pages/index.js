@@ -11,7 +11,7 @@ export default function Home () {
         />
         <link rel='icon' href='/logo.png' />
       </Head>
-      <main className='min-h-screen bg-black container mx-auto'>
+      <main className='min-h-screen md:container md:mx-auto'>
         <section className=''>section 1</section>
         <section className=''>section 2</section>
       </main>
