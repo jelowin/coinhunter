@@ -7,8 +7,18 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
+      },
+      gridTemplateColumns: {
+        autofill: 'repeat(auto-fill, minmax(min(100%, 15rem), 1fr))'
+      },
+      gridAutoRows: {
+        22: '22rem'
       }
     }
   },
-  plugins: []
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio')
+  ]
 }
