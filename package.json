@@ -2,18 +2,28 @@
   "name": "scrap-coins",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jelowin/coinhunter.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "phoenix": "rm -rf ./node_modules && npm i"
+    "phoenix": "rm -rf ./node_modules && npm i",
+    "prepare": "husky install",
+    "test": "eslint ./components/**/*.js ./pages/**/*.js  --fix --config ./node_modules/eslint-config-standard/index.js"
   },
   "dependencies": {
     "@headlessui/react": "1.7.0",
     "@heroicons/react": "2.0.10",
     "@supabase/supabase-js": "2.0.0-rc.6",
+    "@tailwindcss/aspect-ratio": "0.4.2",
+    "@tailwindcss/line-clamp": "0.4.2",
+    "@tailwindcss/typography": "0.5.7",
     "next": "12.1.4",
+    "prop-types": "15.8.1",
     "puppeteer": "16.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -24,6 +34,7 @@
     "autoprefixer": "10.4.8",
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
+    "husky": "^8.0.0",
     "postcss": "8.4.16",
     "standard": "17.0.0",
     "tailwindcss": "3.1.8"
